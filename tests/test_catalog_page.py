@@ -7,7 +7,7 @@ def test_search_pc(driver, base_url):
     CatalogPage.wait_and_click_element(driver, locator=CatalogPage.button_search)
     CatalogPage.wait_and_click_element(driver, locator=CatalogPage.canon_find)
     CatalogPage.wait_and_click_element(driver, locator=CatalogPage.canon_find)
-    assert driver.current_url == "http://192.168.31.204:8081/canon-eos-5d?search=Canon"
+    assert "search=Canon" in driver.current_url
 
 
 def test_present_list_group(driver, base_url):

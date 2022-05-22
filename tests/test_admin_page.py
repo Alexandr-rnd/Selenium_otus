@@ -8,7 +8,7 @@ def test_login_admin(driver, base_url):
     AdminPage.find_and_input_text(driver, AdminPage.input_users, "user")
     AdminPage.find_and_input_text(driver, AdminPage.input_password, "bitnami")
     AdminPage.wait_and_click_element(driver, AdminPage.button_aut)
-    assert "http://192.168.31.204:8081/admin/index.php?route=common/dashboard&user_token" in driver.current_url
+    assert "user_token" in driver.current_url
     time.sleep(2)
 
 

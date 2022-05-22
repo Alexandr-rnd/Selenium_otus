@@ -14,7 +14,7 @@ def test_registration_new_users(driver, base_url):
     RegPage.find_and_input_text(driver, RegPage.input_confirm, RegPage.password)
     RegPage.wait_and_click_element(driver, RegPage.checkbox_confirm)
     RegPage.wait_and_click_element(driver, RegPage.continue_button)
-    assert driver.current_url == "http://192.168.31.204:8081/index.php?route=account/success"
+    assert "account/success" in driver.current_url
 
 
 def test_right_column(driver, base_url):
