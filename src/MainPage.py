@@ -12,3 +12,11 @@ class MainPage(BasePage):
     macbook_air = (By.CSS_SELECTOR, ".swiper-slide-active[data-swiper-slide-index='1']")
     iphone_6 = (By.CSS_SELECTOR, "#slideshow0 .swiper-slide-active")
     swiper_button = (By.CSS_SELECTOR, ".slideshow .swiper-button-next")
+
+    def open_main_page(self, base_url):
+        return self.get(base_url)
+
+    def scroll_main_banner(self):
+        MainPage.find_and_wait(self, locator=MainPage.iphone_6)
+        MainPage.click_element(self, locator=MainPage.banner_scroll)
+        assert MainPage.find_and_wait(self, locator=MainPage.macbook_air, time=1)
