@@ -1,3 +1,5 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from src.BasePage import BasePage
 from selenium.webdriver.common.by import By
 
@@ -23,3 +25,18 @@ class ProductPage(BasePage):
     def check_that_product_added(self):
         product = ProductPage.find_and_wait(self, locator=ProductPage.all_price, time=4)
         assert "1 item(s)" in product.text
+
+    def should_be_present_photos(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.photos_product))
+
+    def should_be_present_button_favorite(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.add_button_to_favorite))
+
+    def should_be_present_add_car(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.add_button_to_cart))
+
+    def should_be_present_contacts(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.contacts_link))
+
+    def should_be_present_activate(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.list_activate))

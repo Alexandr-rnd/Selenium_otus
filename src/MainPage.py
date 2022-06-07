@@ -1,3 +1,5 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from src.BasePage import BasePage
 from selenium.webdriver.common.by import By
 
@@ -20,3 +22,18 @@ class MainPage(BasePage):
         MainPage.find_and_wait(self, locator=MainPage.iphone_6)
         MainPage.click_element(self, locator=MainPage.banner_scroll)
         assert MainPage.find_and_wait(self, locator=MainPage.macbook_air, time=1)
+
+    def logo_should_be_present(self):
+        assert MainPage.find_and_wait(self, locator=MainPage.logo, time=1)
+
+    def should_be_present_input_place(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.input_place))
+
+    def should_be_present_basket(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.basket))
+
+    def should_be_present_input_button(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.input_button))
+
+    def should_be_present_main_banner(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.main_banner))

@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from src.BasePage import BasePage
 
 
@@ -40,3 +42,19 @@ class RegPage(BasePage):
         RegPage.wait_and_click_element(self, RegPage.checkbox_confirm)
         RegPage.wait_and_click_element(self, RegPage.continue_button)
         assert "account/success" in self.current_url
+
+    def should_be_present_right_column(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(RegPage.right_column))
+
+    def should_be_present_checkbox_confirm(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(RegPage.checkbox_confirm))
+
+    def should_be_present_radiobutton_subscribe(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(RegPage.radiobutton_subscribe))
+
+    def should_be_present_input_firstname(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(RegPage.input_firstname))
+
+    def should_be_present_input_continue(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(RegPage.input_continue))
+
