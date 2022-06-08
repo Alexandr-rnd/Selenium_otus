@@ -57,4 +57,3 @@ class RegPage(BasePage):
 
     def should_be_present_input_continue(self, time=1):
         assert WebDriverWait(self, time).until(EC.visibility_of_element_located(RegPage.input_continue))
-

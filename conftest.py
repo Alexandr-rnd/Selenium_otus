@@ -5,8 +5,11 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.firefox.service import Service as FFservice
+from selenium.webdriver.edge.service import Service as EDGEservice
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
 
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
@@ -14,10 +17,12 @@ def pytest_addoption(parser):
     parser.addoption("--url", default=f"http://192.168.31.204:8081/")
     parser.addoption("--headless", action="store_false")
 
+
 @pytest.fixture
 def base_url(request):
     base_url = request.config.getoption("--url")
     return base_url
+
 
 @pytest.fixture
 def driver(request):
@@ -40,9 +45,11 @@ def driver(request):
         options = EdgeOptions()
         if headless:
             options.headless = True
-        browser = webdriver.Edge(options=options, executable_path=f"{driver_path}/msedgedriver")
+        service = EDGEservice(executable_path=EdgeChromiumDriverManager().install())
+        browser = webdriver.Edge(service=service, options=options, executable_path=f"{driver_path}/msedgedriver")
     else:
         raise ValueError("Not found this browser!")
+
     request.addfinalizer(browser.close)
     browser.maximize_window()
     return browser
