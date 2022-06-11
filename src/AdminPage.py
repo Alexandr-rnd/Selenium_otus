@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from src.BasePage import BasePage
 from selenium.webdriver.support.wait import WebDriverWait
@@ -35,82 +37,86 @@ class AdminPage(BasePage):
     DELETE_ALERT = (By.CSS_SELECTOR, "div.alert")
 
     def open_admin_login_page(self, base_url):
-        self.get(base_url + AdminPage.URL_ADMIN)
+        self.logger.info("Opening url: {}".format(base_url + AdminPage.URL_ADMIN))
+        self.driver.get(base_url + AdminPage.URL_ADMIN)
         return self
 
     def click_to_button_catalog_tab(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.OPEN_CATALOG_TAB)
+        self.wait_and_click_element(locator=AdminPage.OPEN_CATALOG_TAB)
 
     def click_to_button_product_tab(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.OPEN_PRODUCT_CATALOG, time=2)
+        self.wait_and_click_element(locator=AdminPage.OPEN_PRODUCT_CATALOG)
 
     def click_to_button_add_new_product(self):
-        AdminPage.wait_and_click_element(self, AdminPage.ADD_NEW_PRODUCT_BUTTON)
+        self.wait_and_click_element(locator=AdminPage.ADD_NEW_PRODUCT_BUTTON)
 
     def input_name_new_product(self):
-        element = AdminPage.find_and_wait(self, AdminPage.INPUT_PLACE_PRODUCT_NAME)
-        element.send_keys(AdminPage.PROCESSOR)
+        self.find_and_input_text(AdminPage.INPUT_PLACE_PRODUCT_NAME, AdminPage.PROCESSOR)
 
     def input_discription_new_product(self):
-        element = WebDriverWait(self, 6).until(EC.element_to_be_clickable(AdminPage.INPUT_PLACE_PRODUCT_DESCRIPTION))
-        element.send_keys(AdminPage.PROCESSOR)
+        self.find_and_input_text(locator=AdminPage.INPUT_PLACE_PRODUCT_DESCRIPTION, text=AdminPage.PROCESSOR)
 
     def click_to_button_add_pictures(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.BUTTON_ADD_PICTURE)
+        self.wait_and_click_element(locator=AdminPage.BUTTON_ADD_PICTURE)
 
     def click_to_button_add_pictures_cart(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.BUTTON_ADD_PICTURE_CART, time=3)
+        self.wait_and_click_element(locator=AdminPage.BUTTON_ADD_PICTURE_CART)
 
     def input_tag_new_product(self):
-        element = WebDriverWait(self, 6).until(EC.element_to_be_clickable(AdminPage.INPUT_TAG_NAME))
-        element.send_keys(AdminPage.PROCESSOR)
+        self.find_and_input_text(locator=AdminPage.INPUT_TAG_NAME, text=AdminPage.PROCESSOR)
 
     def go_to_data_tab(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.BUTTON_DATA_SUBTUB)
+        self.wait_and_click_element(locator=AdminPage.BUTTON_DATA_SUBTUB)
 
     def input_model_product(self):
-        element = WebDriverWait(self, 6).until(EC.element_to_be_clickable(AdminPage.INPUT_MODEL_DATA))
-        element.send_keys(AdminPage.MODEL)
+        self.find_and_input_text(locator=AdminPage.INPUT_MODEL_DATA, text=AdminPage.MODEL)
 
     def save_new_product(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.SAVE_CREATE_NEW_PRODUCT)
+        self.wait_and_click_element(locator=AdminPage.SAVE_CREATE_NEW_PRODUCT)
 
     def click_checkbox_new_element(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.DELETE_NEW_PRODUCT, time=1)
+        self.wait_and_click_element(locator=AdminPage.DELETE_NEW_PRODUCT)
 
     def click_button_delete_product(self):
-        AdminPage.wait_and_click_element(self, locator=AdminPage.BUTTON_DELETE_PRODUCT, time=1)
-        alert = self.switch_to.alert
+        self.wait_and_click_element(locator=AdminPage.BUTTON_DELETE_PRODUCT)
+        self.logger.info("switch_to alert <<{}>>".format(AdminPage.button_aut))
+        alert = self.driver.switch_to.alert
+        self.logger.info("switch_to alert <<{}>>".format(alert.text))
         alert.accept()
         alert_del = AdminPage.find_and_wait(self, locator=AdminPage.DELETE_ALERT)
         assert "You have modified products!" in alert_del.text
 
-    def should_be_present_footer(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.footer))
+    def should_be_present_footer(self):
+        self.logger.info("should_be_present_footer  <<{}>>".format(AdminPage.footer))
+        assert self.wait.until(EC.visibility_of_element_located(AdminPage.footer))
 
-    def should_be_present_forget_password(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.forget_password))
+    def should_be_present_forget_password(self):
+        self.logger.info("should_be_present_forget_password  <<{}>>".format(AdminPage.forget_password))
+        assert self.wait.until(EC.visibility_of_element_located(AdminPage.forget_password))
 
-    def should_be_present_button_autorisation(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.button_aut))
+    def should_be_present_button_autorisation(self):
+        self.logger.info("should_be_present_button_autorisation  <<{}>>".format(AdminPage.button_aut))
+        assert self.wait.until(EC.visibility_of_element_located(AdminPage.button_aut))
 
-    def should_be_present_password_plase(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.input_password))
+    def should_be_present_password_plase(self):
+        self.logger.info("should_be_present_password_plase  <<{}>>".format(AdminPage.input_password))
+        assert self.wait.until(EC.visibility_of_element_located(AdminPage.input_password))
 
-    def should_be_present_name_place(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.input_users))
+    def should_be_present_name_place(self):
+        self.logger.info("should_be_present_name_place  <<{}>>".format(AdminPage.input_users))
+        assert self.wait.until(EC.visibility_of_element_located(AdminPage.input_users))
 
-    def input_name_user(self, time=1):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.input_users))
-        element.send_keys(AdminPage.USER)
+    def input_name_user(self):
+        self.logger.info("input_name_user <<{}>>".format(AdminPage.USER))
+        self.find_and_input_text(locator=AdminPage.input_users, text=AdminPage.USER)
 
-    def input_password_user(self, time=1):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.input_password))
-        element.send_keys(AdminPage.PASSWORD)
+    def input_password_user(self):
+        self.find_and_input_text(locator=AdminPage.input_password, text=AdminPage.PASSWORD)
 
-    def click_button_autorization(self, time=1):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(AdminPage.button_aut))
-        element.click()
+    def click_button_autorization(self):
+        self.logger.info("click_button_autorization to selector <<{}>>".format(AdminPage.button_aut))
+        self.wait_and_click_element(locator=AdminPage.button_aut)
 
     def assert_autorization(self):
-        assert "user_token" in self.current_url
+        self.logger.info("assert_autorization URL <<{}>>".format(self.driver.current_url))
+        assert "user_token" in self.driver.current_url

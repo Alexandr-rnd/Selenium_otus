@@ -1,31 +1,38 @@
+import pytest
 from src.MainPage import MainPage
 
 
-def test_main_banner_scroll(driver, base_url):
-    MainPage.open_main_page(driver, base_url)
-    MainPage.scroll_main_banner(driver)
+def test_main_banner_scroll(browser, base_url):
+    m_page = MainPage(browser, base_url)
+    m_page.open_main_page(base_url)
+    m_page.scroll_main_banner()
 
 
-def test_present_logo(driver, base_url):
-    MainPage.open_main_page(driver, base_url)
-    MainPage.logo_should_be_present(driver)
+def test_present_logo(browser, base_url):
+    m_page = MainPage(browser, base_url)
+    m_page.open_main_page(base_url)
+    m_page.logo_should_be_present()
 
 
-def test_present_basket(driver, base_url):
-    MainPage.open_main_page(driver, base_url)
-    MainPage.should_be_present_basket(driver)
+def test_present_basket(browser, base_url):
+    m_page = MainPage(browser, base_url)
+    m_page.open_main_page(base_url)
+    m_page.should_be_present_basket()
 
 
-def test_present_input_place(driver, base_url):
-    MainPage.open_main_page(driver, base_url)
-    MainPage.should_be_present_input_place(driver)
+def test_present_input_place(browser, base_url):
+    m_page = MainPage(browser, base_url)
+    m_page.open_main_page(base_url)
+    m_page.should_be_present_input_place()
 
 
-def test_present_input_button(driver, base_url):
-    MainPage.open_main_page(driver, base_url)
-    MainPage.should_be_present_main_banner(driver)
+def test_present_input_button(browser, base_url):
+    m_page = MainPage(browser, base_url)
+    m_page.open_main_page(base_url)
+    m_page.should_be_present_main_banner()
 
 
-def test_present_main_banner(driver, base_url):
-    MainPage.open_main_page(driver, base_url)
-    MainPage.should_be_present_input_button(driver)
+def test_present_main_banner(browser, base_url):
+    m_page = MainPage(browser, base_url)
+    m_page.open_main_page(base_url)
+    m_page.should_be_present_input_button()

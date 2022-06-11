@@ -19,32 +19,40 @@ class CatalogPage(BasePage):
     button_search = (By.CSS_SELECTOR, ".btn-lg.btn-default")
     canon_find = (By.CSS_SELECTOR, "[alt='Canon EOS 5D']")
 
-    def should_be_present_list_group(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.group_list))
+    def open_catalog_page(self, base_url):
+        self.logger.info("Opening url: {}".format(base_url + CatalogPage.CATALOG))
+        self.driver.get(base_url + CatalogPage.CATALOG)
+        return self
 
-    def should_be_present_sort(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.sort))
+    def should_be_present_list_group(self):
+        self.logger.info("should_be_present_list_group  <<{}>>".format(CatalogPage.group_list))
+        assert self.wait.until(EC.visibility_of_element_located(CatalogPage.group_list))
 
-    def should_be_present_sort_list(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.sort_list))
+    def should_be_present_sort(self):
+        self.logger.info("should_be_present_sort  <<{}>>".format(CatalogPage.sort_list))
+        assert self.wait.until(EC.visibility_of_element_located(CatalogPage.sort))
 
-    def should_be_present_show_list(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.show_list))
+    def should_be_present_sort_list(self):
+        self.logger.info("should_be_present_sort_list  <<{}>>".format(CatalogPage.sort_list))
+        assert self.wait.until(EC.visibility_of_element_located(CatalogPage.sort_list))
 
-    def should_be_present_banner(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.present_banner))
+    def should_be_present_show_list(self):
+        self.logger.info("should_be_present_show_list  <<{}>>".format(CatalogPage.show_list))
+        assert self.wait.until(EC.visibility_of_element_located(CatalogPage.show_list))
 
-    def input_search_place(self, time=1):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.search_place))
-        element.send_keys(CatalogPage.PRODUCT)
+    def should_be_present_banner(self):
+        self.logger.info("should_be_present_banner  <<{}>>".format(CatalogPage.present_banner))
+        assert self.wait.until(EC.visibility_of_element_located(CatalogPage.present_banner))
 
-    def click_button_search(self, time=1):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.button_search))
-        element.click()
+    def input_search_place(self):
+        self.find_and_input_text(locator=CatalogPage.search_place, text=CatalogPage.PRODUCT)
 
-    def click_canon_find(self, time=1):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(CatalogPage.canon_find))
-        element.click()
+    def click_button_search(self):
+        self.wait_and_click_element(CatalogPage.button_search)
+
+    def click_canon_find(self):
+        self.wait_and_click_element(CatalogPage.canon_find)
 
     def find_product_in_url(self):
-        assert CatalogPage.PRODUCT in self.current_url
+        self.logger.info("check url <<{}>> is contains <<{}>>".format(self.driver.current_url, CatalogPage.PRODUCT))
+        assert CatalogPage.PRODUCT in self.driver.current_url
