@@ -4,10 +4,9 @@ from faker import Faker
 
 
 class BasePage:
-
-    def find_and_wait(self, locator='locator', time=0):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(locator))
-        return element
+    def __init__(self, driver, base_url):
+        self.driver = driver
+        self.base_url = base_url
 
     def find_and_input_text(self, locator='locator', text='text', time=0):
         element = WebDriverWait(self, time).until(EC.visibility_of_element_located(locator))
@@ -26,12 +25,17 @@ class BasePage:
             element.send_keys(text)
         return element
 
+    def open_base_page(self, base_url):
+        return self.get(base_url)
+
+    def find_and_wait(self, locator='locator', time=0):
+        return WebDriverWait(self, time).until(EC.visibility_of_element_located(locator))
+
+
     def wait_and_click_element(self, locator="locator", time=0):
-        element = WebDriverWait(self, time).until(EC.visibility_of_element_located(locator))
-        element.click()
-        return element
+        return WebDriverWait(self, time).until(EC.visibility_of_element_located(locator)).click()
+
 
     def click_element(self, locator='locator'):
-        element = self.find_element(*locator)
-        element.click()
-        return element
+        return self.find_element(*locator).click()
+

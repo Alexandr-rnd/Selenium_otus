@@ -1,3 +1,5 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from src.BasePage import BasePage
 from selenium.webdriver.common.by import By
 
@@ -12,3 +14,26 @@ class MainPage(BasePage):
     macbook_air = (By.CSS_SELECTOR, ".swiper-slide-active[data-swiper-slide-index='1']")
     iphone_6 = (By.CSS_SELECTOR, "#slideshow0 .swiper-slide-active")
     swiper_button = (By.CSS_SELECTOR, ".slideshow .swiper-button-next")
+
+    def open_main_page(self, base_url):
+        return self.get(base_url)
+
+    def scroll_main_banner(self):
+        MainPage.find_and_wait(self, locator=MainPage.iphone_6)
+        MainPage.click_element(self, locator=MainPage.banner_scroll)
+        assert MainPage.find_and_wait(self, locator=MainPage.macbook_air, time=1)
+
+    def logo_should_be_present(self):
+        assert MainPage.find_and_wait(self, locator=MainPage.logo, time=1)
+
+    def should_be_present_input_place(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.input_place))
+
+    def should_be_present_basket(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.basket))
+
+    def should_be_present_input_button(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.input_button))
+
+    def should_be_present_main_banner(self, time=1):
+        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(MainPage.main_banner))

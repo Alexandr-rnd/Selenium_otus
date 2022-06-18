@@ -3,33 +3,32 @@ from src.CatalogPage import CatalogPage
 
 def test_search_pc(driver, base_url):
     driver.get(base_url + CatalogPage.CATALOG)
-    CatalogPage.find_and_input_text(driver, locator=CatalogPage.search_place, text="Canon", time=1)
-    CatalogPage.wait_and_click_element(driver, locator=CatalogPage.button_search)
-    CatalogPage.wait_and_click_element(driver, locator=CatalogPage.canon_find)
-    CatalogPage.wait_and_click_element(driver, locator=CatalogPage.canon_find)
-    assert "search=Canon" in driver.current_url
+    CatalogPage.input_search_place(driver)
+    CatalogPage.click_button_search(driver)
+    CatalogPage.click_canon_find(driver)
+    CatalogPage.find_product_in_url(driver)
 
 
 def test_present_list_group(driver, base_url):
     driver.get(base_url + CatalogPage.CATALOG)
-    CatalogPage.find_and_wait(driver, locator=CatalogPage.group_list)
+    CatalogPage.should_be_present_list_group(driver)
 
 
 def test_present_sort(driver, base_url):
     driver.get(base_url + CatalogPage.CATALOG)
-    CatalogPage.find_and_wait(driver, locator=CatalogPage.sort)
+    CatalogPage.should_be_present_sort(driver)
 
 
 def test_present_sort_list(driver, base_url):
     driver.get(base_url + CatalogPage.CATALOG)
-    CatalogPage.find_and_wait(driver, locator=CatalogPage.sort_list)
+    CatalogPage.should_be_present_sort_list(driver)
 
 
 def test_present_show_list(driver, base_url):
     driver.get(base_url + CatalogPage.CATALOG)
-    CatalogPage.find_and_wait(driver, locator=CatalogPage.show_list)
+    CatalogPage.should_be_present_show_list(driver)
 
 
 def test_present_banner(driver, base_url):
     driver.get(base_url + CatalogPage.CATALOG)
-    CatalogPage.find_and_wait(driver, locator=CatalogPage.present_banner)
+    CatalogPage.should_be_present_banner(driver)
