@@ -1,57 +1,72 @@
+import allure
 import pytest
-
 from src.AdminPage import AdminPage
 
 
 @pytest.mark.smoke
-def test_add_and_delete_product_admin(driver, base_url):
-    AdminPage.open_admin_login_page(driver, base_url)
-    AdminPage.input_name_user(driver)
-    AdminPage.input_password_user(driver)
-    AdminPage.click_button_autorization(driver)
-    AdminPage.click_to_button_catalog_tab(driver)
-    AdminPage.click_to_button_product_tab(driver)
-    AdminPage.click_to_button_add_new_product(driver)
-    AdminPage.input_name_new_product(driver)
-    AdminPage.input_discription_new_product(driver)
-    AdminPage.click_to_button_add_pictures(driver)
-    AdminPage.click_to_button_add_pictures_cart(driver)
-    AdminPage.input_tag_new_product(driver)
-    AdminPage.go_to_data_tab(driver)
-    AdminPage.input_model_product(driver)
-    AdminPage.save_new_product(driver)
-    AdminPage.click_checkbox_new_element(driver)
-    AdminPage.click_button_delete_product(driver)
+@allure.title("Тест добавления и удаления продукта")
+@allure.link('http://192.168.31.204:8081/admin/')
+def test_add_and_delete_product(browser, base_url):
+    adm_page = AdminPage(browser, base_url)
+    adm_page.open_admin_login_page(base_url)
+    adm_page.input_password_user()
+    adm_page.input_name_user()
+    adm_page.click_button_autorization()
+    adm_page.click_to_button_catalog_tab()
+    adm_page.click_to_button_product_tab()
+    adm_page.click_to_button_add_new_product()
+    adm_page.input_name_new_product()
+    adm_page.input_discription_new_product()
+    adm_page.click_to_button_add_pictures()
+    adm_page.click_to_button_add_pictures_cart()
+    adm_page.input_tag_new_product()
+    adm_page.go_to_data_tab()
+    adm_page.input_model_product()
+    adm_page.save_new_product()
+    adm_page.click_checkbox_new_element()
+    adm_page.click_button_delete_product()
 
 
-def test_login_admin(driver, base_url):
-    driver.get(base_url + AdminPage.URL_ADMIN)
-    AdminPage.input_name_user(driver)
-    AdminPage.input_password_user(driver)
-    AdminPage.click_button_autorization(driver)
-    AdminPage.assert_autorization(driver)
+@allure.title("Тест логина в админку")
+def test_login_admin(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.input_name_user()
+    page.input_password_user()
+    page.click_button_autorization()
+    page.assert_autorization()
 
 
-def test_present_name_place(driver, base_url):
-    driver.get(base_url + AdminPage.URL_ADMIN)
-    AdminPage.should_be_present_name_place(driver)
+@allure.title("Тест наличия поля для имени")
+def test_present_name_place(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.should_be_present_name_place()
 
 
-def test_present_password_place(driver, base_url):
-    driver.get(base_url + AdminPage.URL_ADMIN)
-    AdminPage.should_be_present_password_plase(driver)
+@allure.title("Тест наличия поля для пароля")
+def test_present_password_place(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.should_be_present_password_plase()
 
 
-def test_present_button_authorization(driver, base_url):
-    driver.get(base_url + AdminPage.URL_ADMIN)
-    AdminPage.should_be_present_button_autorisation(driver)
+@allure.title("Тест наличия кнопки авторизации")
+def test_present_button_authorization(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.should_be_present_button_autorisation()
 
 
-def test_present_forget_password(driver, base_url):
-    driver.get(base_url + AdminPage.URL_ADMIN)
-    AdminPage.should_be_present_forget_password(driver)
+@allure.title("Тест наличия кнопки **забыл пароль**")
+def test_present_forget_password(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.should_be_present_forget_password()
 
 
-def test_present_opencart_footer(driver, base_url):
-    driver.get(base_url + AdminPage.URL_ADMIN)
-    AdminPage.should_be_present_footer(driver)
+@allure.title("Тест наличия футера")
+def test_present_footer(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.should_be_present_footer()

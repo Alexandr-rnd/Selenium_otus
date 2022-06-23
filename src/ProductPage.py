@@ -1,4 +1,5 @@
-from selenium.webdriver.support.wait import WebDriverWait
+import time
+import allure
 from selenium.webdriver.support import expected_conditions as EC
 from src.BasePage import BasePage
 from selenium.webdriver.common.by import By
@@ -16,27 +17,36 @@ class ProductPage(BasePage):
     list_activate = (By.CSS_SELECTOR, "li.active a")
     all_price = (By.CSS_SELECTOR, "#cart-total")
 
+    @allure.step
     def open_product_page(self, base_url):
-        return self.get(base_url + ProductPage.PRODUCT)
+        return self.driver.get(base_url + ProductPage.PRODUCT)
 
+    @allure.step
     def click_to_add_button(self):
-        ProductPage.wait_and_click_element(self, locator=ProductPage.add_button_to_cart)
+        self.wait_and_click_element(locator=ProductPage.add_button_to_cart)
+        time.sleep(1)
 
+    @allure.step
     def check_that_product_added(self):
-        product = ProductPage.find_and_wait(self, locator=ProductPage.all_price, time=4)
+        product = self.find_and_wait(locator=ProductPage.all_price)
         assert "1 item(s)" in product.text
 
-    def should_be_present_photos(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.photos_product))
+    @allure.step
+    def should_be_present_photos(self):
+        assert self.wait.until(EC.visibility_of_element_located(ProductPage.photos_product))
 
-    def should_be_present_button_favorite(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.add_button_to_favorite))
+    @allure.step
+    def should_be_present_button_favorite(self):
+        assert self.wait.until(EC.visibility_of_element_located(ProductPage.add_button_to_favorite))
 
-    def should_be_present_add_car(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.add_button_to_cart))
+    @allure.step
+    def should_be_present_add_car(self):
+        assert self.wait.until(EC.visibility_of_element_located(ProductPage.add_button_to_cart))
 
-    def should_be_present_contacts(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.contacts_link))
+    @allure.step
+    def should_be_present_contacts(self):
+        assert self.wait.until(EC.visibility_of_element_located(ProductPage.contacts_link))
 
-    def should_be_present_activate(self, time=1):
-        assert WebDriverWait(self, time).until(EC.visibility_of_element_located(ProductPage.list_activate))
+    @allure.step
+    def should_be_present_activate(self):
+        assert self.wait.until(EC.visibility_of_element_located(ProductPage.list_activate))
