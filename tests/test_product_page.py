@@ -21,7 +21,7 @@ def test_present_photos(browser, base_url):
 @allure.title("Тест наличия элемента: button_favorite")
 def test_present_button_favorite(browser, base_url):
     prod_page = ProductPage(browser, base_url)
-    prod_page.open_product_page(base_url)
+    prod_page.open_product_page()
     prod_page.should_be_present_button_favorite()
 
 

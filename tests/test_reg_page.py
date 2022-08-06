@@ -22,7 +22,7 @@ def test_right_column(browser, base_url):
 def test_checkbox_confirm(browser, base_url):
     reg_page = RegPage(browser, base_url)
     reg_page.open_reg_page(base_url)
-    reg_page.should_be_present_checkbox_confirm(browser)
+    reg_page.should_be_present_checkbox_confirm()
 
 
 @allure.title("Тест наличия элемента: radiobutton_subscribe")
