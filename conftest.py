@@ -9,15 +9,16 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 import logging
 from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
+import os
 
 
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
-    parser.addoption("--drivers", default=f"C://drivers")
+    parser.addoption("--drivers", default=os.path.expanduser("~/drivers"))
     parser.addoption("--url", default=f"http://192.168.31.204:8081/")
     parser.addoption("--headless", action="store_false")
     parser.addoption("--log_level", action="store", default="DEBUG")
-    parser.addoption("--executor", action="store", default="192.168.31.204")
+    parser.addoption("--executor", action="store", default="local")#192.168.31.204
     parser.addoption("--bv")
     parser.addoption("--vnc", action="store_true")
 
@@ -40,7 +41,7 @@ def browser(request):
 
     # создаем файл логгера и форматируем для каждого теста
     logger = logging.getLogger(request.node.name)
-    file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
+    file_handler = logging.FileHandler(f"logs\{request.node.name}.log")
     file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     logger.addHandler(file_handler)
     logger.setLevel(level=log_level)
@@ -66,6 +67,7 @@ def browser(request):
             driver = webdriver.Edge(service=service, options=options, executable_path=f"{driver_path}/msedgedriver")
         else:
             raise ValueError("Not found this browser!")
+
     else:  # Переводим запуск на Хост селеноида
         executor_url = f"http://{executor}:4444/wd/hub"
         caps = {
