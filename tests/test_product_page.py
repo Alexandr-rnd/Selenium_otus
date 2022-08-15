@@ -1,3 +1,5 @@
+import time
+
 import allure
 
 from src.ProductPage import ProductPage

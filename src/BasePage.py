@@ -1,6 +1,10 @@
+import time
+
 import allure
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
 from faker import Faker
 
 
@@ -50,12 +54,45 @@ class BasePage:
         self.logger.info("Check if element {} is present".format(locator))
         return self.wait.until(EC.visibility_of_element_located(locator))
 
-    @allure.step('Ожидать, что  элемент {locator} доступен для нажатия и сделать клик по элементу')
-    def wait_and_click_element(self, locator="locator"):
-        self.logger.info("Clicking element: {}".format(locator))
-        return self.wait.until(EC.visibility_of_element_located(locator)).click()
+    @allure.step('Найти, элементы {locator} и убедиться что они присутствуют в dom')
+    def find_and_wait_all_elements(self, locator='locator'):
+        self.logger.info("Check if element {} is present".format(locator))
+        return self.wait.until(EC.presence_of_all_elements_located(locator))
 
     @allure.step('Найти элемент {locator} и сделать клик по нему')
     def click_element(self, locator='locator'):
         self.logger.info("Simple clicking element: {}".format(locator))
         return self.driver.find_element(*locator).click()
+
+    @allure.step('Ожидать, что  элемент {locator} доступен для нажатия и сделать клик по элементу')
+    def wait_and_click_element1(self, locator="locator"):
+        self.logger.info("Clicking element: {}".format(locator))
+        return self.wait.until(EC.visibility_of_element_located(locator)).click()
+
+    @allure.step('Найти элемент {locator} переместить к нему курсор и сделать клик по нему')
+    def wait_and_click_element(self, locator='locator'):
+        self.logger.info("Clicking element: {}".format(locator))
+        actions = ActionChains(self.driver)
+        try:
+            element = self.wait.until(EC.visibility_of_element_located(locator))
+        except:
+            time.sleep(1)
+            element = self.wait.until(EC.visibility_of_element_located(locator))
+        actions.move_to_element(element).pause(0.5).click().perform()
+
+    @allure.step('Найти выпадающий список {locator} и выбрать из него значение')
+    def select_elemen_from_dropdown(self, locator='locator', value=''):
+        self.logger.info("Choose element {} from dropdown: {}".format(value,locator))
+        select = Select(self.wait.until(EC.visibility_of_element_located(locator)))
+        select.select_by_value(value)
+
+
+
+
+
+    #####  OLD METHODS
+
+    # @allure.step('Ожидать, что  элемент {locator} доступен для нажатия и сделать клик по элементу')
+    # def wait_and_click_element1(self, locator="locator"):
+    #     self.logger.info("Clicking element: {}".format(locator))
+    #     return self.wait.until(EC.visibility_of_element_located(locator)).click()
