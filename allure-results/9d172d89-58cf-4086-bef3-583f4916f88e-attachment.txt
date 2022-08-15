@@ -1,0 +1,21 @@
+INFO     test_present_contacts:conftest.py:49 ===> Test test_present_contacts started
+INFO     WDM:logger.py:11 ====== WebDriver manager ======
+INFO     WDM:logger.py:11 Get LATEST chromedriver version for google-chrome 104.0.5112
+DEBUG    urllib3.connectionpool:connectionpool.py:1003 Starting new HTTPS connection (1): chromedriver.storage.googleapis.com:443
+DEBUG    urllib3.connectionpool:connectionpool.py:456 https://chromedriver.storage.googleapis.com:443 "GET /LATEST_RELEASE_104.0.5112 HTTP/1.1" 200 13
+INFO     WDM:logger.py:11 Driver [/home/GoorooG/.wdm/drivers/chromedriver/linux64/104.0.5112/chromedriver] found in cache
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:347 POST http://localhost:36745/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "pageLoadStrategy": "normal", "goog:chromeOptions": {"extensions": [], "args": []}}}, "desiredCapabilities": {"browserName": "chrome", "pageLoadStrategy": "normal", "goog:chromeOptions": {"extensions": [], "args": []}}}
+DEBUG    urllib3.connectionpool:connectionpool.py:228 Starting new HTTP connection (1): localhost:36745
+DEBUG    urllib3.connectionpool:connectionpool.py:456 http://localhost:36745 "POST /session HTTP/1.1" 200 753
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:398 Finished Request
+INFO     test_present_contacts:conftest.py:94 start with browser<<chrome>>
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:347 POST http://localhost:36745/session/88465ad116aaeb1b481f43c3295cd9e4/window/maximize {}
+DEBUG    urllib3.connectionpool:connectionpool.py:456 http://localhost:36745 "POST /session/88465ad116aaeb1b481f43c3295cd9e4/window/maximize HTTP/1.1" 200 54
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:398 Finished Request
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:347 POST http://localhost:36745/session/88465ad116aaeb1b481f43c3295cd9e4/url {"url": "http://192.168.31.204:8081/desktops/ipod-classic"}
+DEBUG    urllib3.connectionpool:connectionpool.py:456 http://localhost:36745 "POST /session/88465ad116aaeb1b481f43c3295cd9e4/url HTTP/1.1" 200 14
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:398 Finished Request
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:347 DELETE http://localhost:36745/session/88465ad116aaeb1b481f43c3295cd9e4 {}
+DEBUG    urllib3.connectionpool:connectionpool.py:456 http://localhost:36745 "DELETE /session/88465ad116aaeb1b481f43c3295cd9e4 HTTP/1.1" 200 14
+DEBUG    selenium.webdriver.remote.remote_connection:remote_connection.py:398 Finished Request
+INFO     test_present_contacts:conftest.py:111 <=== Test test_present_contacts finished

@@ -1,6 +1,30 @@
+import time
+
 import allure
 
 from src.RegPage import RegPage
+
+
+@allure.title("Тест изменение данных аккаунта")
+def test_registration_edit_profile(browser, base_url):
+    reg_page = RegPage(browser, base_url)
+    reg_page.open_reg_page(base_url)
+    reg_page.to_fill_new_user_form()
+    reg_page.press_confirm()
+    reg_page.press_edit_account()
+    reg_page.input_lastneme()
+    reg_page.press_confirm_edit_account()
+
+
+@allure.title("Тест выхода из аккаунта")
+def test_logout_from_account(browser, base_url):
+    reg_page = RegPage(browser, base_url)
+    reg_page.open_reg_page(base_url)
+    reg_page.to_fill_new_user_form()
+    reg_page.press_confirm()
+    reg_page.press_logout()
+    reg_page.press_confirm_logout_button()
+    reg_page.should_be_login_text()
 
 
 @allure.title("Тест на регистрации нового пользователя")
@@ -8,7 +32,8 @@ def test_registration_new_users(browser, base_url):
     reg_page = RegPage(browser, base_url)
     reg_page.open_reg_page(base_url)
     reg_page.to_fill_new_user_form()
-    reg_page.press_confirm_and_assert()
+    reg_page.press_confirm()
+    reg_page.should_be_success()
 
 
 @allure.title("Тест наличия боковой панели")
