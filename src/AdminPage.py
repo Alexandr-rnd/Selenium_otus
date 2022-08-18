@@ -10,15 +10,10 @@ class AdminPage(BasePage):
     PASSWORD = "bitnami"
     PRODUCT = "iPhone"
 
-
-
     # variableses
     PROCESSOR = "ELBRUS 100500 cor."
     MODEL = 'KALINKA'
     MODEL_FOR_TEST_FILTER = 'iPhone'
-
-
-
 
     # lOCATORS
     input_users = (By.CSS_SELECTOR, "#input-username")
@@ -64,16 +59,63 @@ class AdminPage(BasePage):
     SELECT_STATUS_CUSTOMER = (By.CSS_SELECTOR, "#input-status")
     SAVE_EDIT_CUSTOMERS = (By.CSS_SELECTOR, "#content .pull-right button.btn-primary")
     CUSTOMERS_LIST = (By.CSS_SELECTOR, ".table-hover tbody")
+    DESIGN_TAB = (By.CSS_SELECTOR, "#menu-design a.collapsed")
+    BANNERS_TAB = (By.XPATH, "//a[text()='Banners']")
+    BUTTON_ADD_NEW_BUNNER = (By.CSS_SELECTOR, "div.pull-right a")
+    BANNER_NAME = (By.CSS_SELECTOR, "#input-name")
+    BUTTON_ADD_BUNNER_IN_PAGE_BUNNER = (By.CSS_SELECTOR, "button[data-original-title='Add Banner']")
+    BUTTON_ADD_IMAGE_BUNNER = (By.CSS_SELECTOR, "a#thumb-image0")
+    BUTTON_EDIT_IMAGE_BUNNER = (By.CSS_SELECTOR, "#button-image")
+    SOME_IMAGE_FOR_TEST = (By.CSS_SELECTOR, "img[alt='profile-pic.pn g']")
+    BUTTON_ADD_NEW_BUNNER1 = (By.CSS_SELECTOR, "a#thumb-image1")
+    BUTTON_SAVE_CONFIG_BUNNER = (By.CSS_SELECTOR, "button[data-original-title='Save']")
+    INPUT_TITLE_BANNER = (By.CSS_SELECTOR, "input[placeholder='Title']")
+    ALLERT_SUCCSESSFUL = (By.CSS_SELECTOR, "div.alert-success")
 
+    @allure.step
+    def input_banner_title(self):
+        self.find_and_input_text(locator=AdminPage.INPUT_TITLE_BANNER, text="title")
 
-    # BUTTON_DANGER = (By.CSS_SELECTOR, "td.text-right a.btn")
-    # BUTTON_DANGER = (By.CSS_SELECTOR, "td.text-right a.btn")
+    @allure.step
+    def confirm_create_banner(self):
+        self.wait_and_click_element(locator=AdminPage.BUTTON_SAVE_CONFIG_BUNNER)
+
+    @allure.step
+    def confirm_picture_bunner(self):
+        self.wait_and_click_element(locator=AdminPage.SOME_IMAGE_FOR_TEST)
+
+    @allure.step
+    def edit_picture_banner(self):
+        self.wait_and_click_element(locator=AdminPage.BUTTON_EDIT_IMAGE_BUNNER)
+
+    @allure.step
+    def choose_some_picture_for_banner(self):
+        self.wait_and_click_element(locator=AdminPage.BUTTON_ADD_IMAGE_BUNNER)
+
+    @allure.step
+    def add_banner_on_page_banners(self):
+        self.wait_and_click_element(locator=AdminPage.BUTTON_ADD_BUNNER_IN_PAGE_BUNNER)
+
+    @allure.step
+    def input_banner_name(self):
+        self.find_and_input_text(locator=AdminPage.BANNER_NAME, text="test_banner")
+
+    @allure.step
+    def add_new_banner(self):
+        self.wait_and_click_element(locator=AdminPage.BUTTON_ADD_NEW_BUNNER)
+
+    @allure.step
+    def go_to_banner_tab(self):
+        self.wait_and_click_element(locator=AdminPage.BANNERS_TAB)
+
+    @allure.step
+    def go_to_disign_tab(self):
+        self.wait_and_click_element(locator=AdminPage.DESIGN_TAB)
 
     @allure.step
     def should_be_only_one_customers(self):
         elements = self.find_and_wait_all_elements(locator=AdminPage.CUSTOMERS_LIST)
         assert len(elements) == int(1)
-
 
     @allure.step
     def save_edit_customer(self):
@@ -284,5 +326,6 @@ class AdminPage(BasePage):
         self.logger.info("assert_autorization URL <<{}>>".format(self.driver.current_url))
         assert "user_token" in self.driver.current_url
 
-
-
+    @allure.step
+    def should_be_allert_success(self):
+        assert "Success" in self.wait.until(EC.visibility_of_element_located(AdminPage.ALLERT_SUCCSESSFUL)).text

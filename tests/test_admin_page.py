@@ -1,13 +1,27 @@
 import time
 
 import allure
-import pytest
 from src.AdminPage import AdminPage
 
 
-@pytest.mark.smoke
-@allure.title("Тест добавления и удаления продукта")
-@allure.link('http://192.168.31.204:8081/admin/')
+@allure.title("Тест добавления баннера")
+def test_add_new_banner(browser, base_url):
+    adm_page = AdminPage(browser, base_url)
+    adm_page.open_admin_login_page(base_url)
+    adm_page.input_password_user()
+    adm_page.input_name_user()
+    adm_page.click_button_autorization()
+    adm_page.go_to_disign_tab()
+    adm_page.go_to_banner_tab()
+    adm_page.add_new_banner()
+    adm_page.input_banner_name()
+    adm_page.add_banner_on_page_banners()
+    adm_page.choose_some_picture_for_banner()
+    adm_page.edit_picture_banner()
+    adm_page.confirm_picture_bunner()
+    adm_page.input_banner_title()
+    adm_page.confirm_create_banner()
+    adm_page.should_be_allert_success()
 
 
 @allure.title("Тест фильтра по наименованию продукта")
@@ -39,7 +53,6 @@ def test_chenge_customers(browser, base_url):
     adm_page.close_allert()
 
 
-
 @allure.title("Тест добавления и удаления продукта")
 def test_add_and_delete_product(browser, base_url):
     adm_page = AdminPage(browser, base_url)
@@ -60,7 +73,6 @@ def test_add_and_delete_product(browser, base_url):
     adm_page.save_new_product()
     adm_page.click_checkbox_new_element()
     adm_page.click_button_delete_product()
-
 
 
 @allure.title("Тест фильтра по наименованию продукта")
@@ -99,7 +111,7 @@ def test_chenge_product_status(browser, base_url):
     adm_page.click_to_button_save_edit()
     adm_page.click_to_button_filtre()
     adm_page.should_be_chenged_status_product()
-    #time.sleep(500)
+
 
 @allure.title("Тест создвния пользователя")
 def test_create_new_customers(browser, base_url):
@@ -124,15 +136,6 @@ def test_create_new_customers(browser, base_url):
     adm_page.close_allert()
 
 
-
-
-@allure.title("Тест наличия кнопки авторизации")
-def test_present_button_authorization(browser, base_url):
-    page = AdminPage(browser, base_url)
-    page.open_admin_login_page(base_url)
-    page.should_be_present_button_autorisation()
-
-
 @allure.title("Тест логина в админку")
 def test_login_admin(browser, base_url):
     page = AdminPage(browser, base_url)
@@ -141,6 +144,13 @@ def test_login_admin(browser, base_url):
     page.input_password_user()
     page.click_button_autorization()
     page.assert_autorization()
+
+
+@allure.title("Тест наличия кнопки авторизации")
+def test_present_button_authorization(browser, base_url):
+    page = AdminPage(browser, base_url)
+    page.open_admin_login_page(base_url)
+    page.should_be_present_button_autorisation()
 
 
 @allure.title("Тест наличия поля для имени")
@@ -157,8 +167,6 @@ def test_present_password_place(browser, base_url):
     page.should_be_present_password_plase()
 
 
-
-
 @allure.title("Тест наличия кнопки **забыл пароль**")
 def test_present_forget_password(browser, base_url):
     page = AdminPage(browser, base_url)
@@ -171,11 +179,3 @@ def test_present_footer(browser, base_url):
     page = AdminPage(browser, base_url)
     page.open_admin_login_page(base_url)
     page.should_be_present_footer()
-
-
-
-
-
-
-
-

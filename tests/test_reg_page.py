@@ -1,7 +1,4 @@
-import time
-
 import allure
-
 from src.RegPage import RegPage
 
 

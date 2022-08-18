@@ -7,7 +7,6 @@ from src.BasePage import BasePage
 class RegPage(BasePage):
     # URL
     REG_URL = "/index.php?route=account/register"
-
     password = "12345"
 
     # LOCATORS
@@ -28,12 +27,11 @@ class RegPage(BasePage):
     LOGIN_BUTTON = (By.XPATH, "//a[text()='Login']")
     CONFIRM_EDIT_PROFILE_BUTTON = (By.CSS_SELECTOR, "input[value='Continue']")
     EDIT_TO_ACCOUNT = (By.XPATH, "//a[text()='Edit Account']")
-    ALLERT_SUCCESFUL = (By.CSS_SELECTOR, "div.alert-success")
-
+    ALLERT_SUCCSESSFUL = (By.CSS_SELECTOR, "div.alert-success")
 
     @allure.step
     def check_the_lastneme(self):
-        element = self.find_and_wait(RegPage.ALLERT_SUCCESFUL)
+        element = self.find_and_wait(RegPage.ALLERT_SUCCSESSFUL)
         assert "Success: Your account has been successfully updated" in \
                element.text
 

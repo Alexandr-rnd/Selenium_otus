@@ -19,6 +19,7 @@ class BasePage:
     def find_and_input_text(self, locator='locator', text='text'):
         self.logger.info("Input text<<{}>> in the place <<{}>>".format(text, locator))
         element = self.wait.until(EC.visibility_of_element_located(locator))
+        element.clear()
         a = Faker()
         if text == "first_name":
             var = a.first_name()
@@ -82,17 +83,6 @@ class BasePage:
 
     @allure.step('Найти выпадающий список {locator} и выбрать из него значение')
     def select_elemen_from_dropdown(self, locator='locator', value=''):
-        self.logger.info("Choose element {} from dropdown: {}".format(value,locator))
+        self.logger.info("Choose element {} from dropdown: {}".format(value, locator))
         select = Select(self.wait.until(EC.visibility_of_element_located(locator)))
         select.select_by_value(value)
-
-
-
-
-
-    #####  OLD METHODS
-
-    # @allure.step('Ожидать, что  элемент {locator} доступен для нажатия и сделать клик по элементу')
-    # def wait_and_click_element1(self, locator="locator"):
-    #     self.logger.info("Clicking element: {}".format(locator))
-    #     return self.wait.until(EC.visibility_of_element_located(locator)).click()
