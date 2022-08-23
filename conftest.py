@@ -18,7 +18,7 @@ def pytest_addoption(parser):
     parser.addoption("--url", default=f"http://192.168.31.204:8081/")
     parser.addoption("--headless", action="store_false")
     parser.addoption("--log_level", action="store", default="DEBUG")
-    parser.addoption("--executor", action="store", default="local")  # 192.168.31.204
+    parser.addoption("--executor", action="store", default="192.168.31.204")  
     parser.addoption("--bv")
     parser.addoption("--vnc", action="store_true")
 
