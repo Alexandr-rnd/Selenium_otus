@@ -15,7 +15,7 @@ import os
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
     parser.addoption("--drivers", default=os.path.expanduser("~/drivers"))
-    parser.addoption("--url", default=f"http://192.168.31.204:8090/")
+    parser.addoption("--url", default=f"http://192.168.31.205:8090/")
     parser.addoption("--headless", action="store_false")
     parser.addoption("--log_level", action="store", default="DEBUG")
     parser.addoption("--executor", action="store", default="192.168.31.204")  
