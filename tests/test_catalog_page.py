@@ -9,7 +9,6 @@ def test_search_pc(browser, base_url):
     Catalog_page.input_search_place()
     Catalog_page.click_button_search()
     Catalog_page.click_canon_find()
-    Catalog_page.find_product_in_url()
 
 
 @allure.title("Тест наличия элемента: list_group")
