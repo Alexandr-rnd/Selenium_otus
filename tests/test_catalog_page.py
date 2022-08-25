@@ -2,15 +2,6 @@ import allure
 from src.CatalogPage import CatalogPage
 
 
-@allure.title("Тест поиск продукта")
-def test_search_pc(browser, base_url):
-    Catalog_page = CatalogPage(browser, base_url)
-    Catalog_page.open_catalog_page(base_url)
-    Catalog_page.input_search_place()
-    Catalog_page.click_button_search()
-    Catalog_page.click_canon_find()
-
-
 @allure.title("Тест наличия элемента: list_group")
 def test_present_list_group(browser, base_url):
     Catalog_page = CatalogPage(browser, base_url)
